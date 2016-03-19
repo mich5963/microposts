@@ -48,6 +48,7 @@ class UsersController < ApplicationController
     else
       flash[:danger] = "不正な操作が行われました"
       redirect_to login_path
+      #redirect_to logout_path
     end
   end
   
