@@ -43,7 +43,12 @@ class UsersController < ApplicationController
   end
 
   def set_user
-    @user = User.find(params[:id])
+    if  current_user == User.find(params[:id])  
+      @user = current_user
+    else
+      flash[:danger] = "不正な操作が行われました"
+      redirect_to login_path
+    end
   end
-
+  
 end
