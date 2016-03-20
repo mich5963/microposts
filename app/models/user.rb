@@ -10,4 +10,6 @@ class User < ActiveRecord::Base
     validates :location , length: { maximum: 50  , message: '50文字以下としてください'} 
     validates :url , allow_nil: true , allow_blank: true ,length: { maximum: 2048 }, format: /\A#{URI::regexp(%w(http https))}\z/ 
     
+    has_many :microposts
+    
 end
