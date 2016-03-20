@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:edit, :update]
+  before_action :check_user, only: [:edit, :update]
+  before_action :logged_in_user , only: [:edit, :update, :followings, :followers ]
+  before_action :set_user, only: [:edit, :update, :followings, :followers ]
   
   def show # 追加
     @user = User.find(params[:id])
@@ -33,7 +35,14 @@ class UsersController < ApplicationController
       render 'edit'
     end
   end  
-
+  
+  def followings
+    @users = @user.following_users
+  end
+  
+  def followers
+    @users = @user.follower_users
+  end
 
   private
 
@@ -42,15 +51,17 @@ class UsersController < ApplicationController
                   :password_confirmation, :profile, :location,
                   :url, :birthday )
   end
-
-  def set_user
-    if  current_user == User.find(params[:id])  
-      @user = current_user
-    else
+  
+  def check_user
+    unless  current_user == User.find(params[:id])  
       flash[:danger] = "不正な操作が行われました"
       redirect_to login_path
       #redirect_to logout_path
     end
+  end
+
+  def set_user
+    @user = User.find(params[:id])  
   end
   
 end
