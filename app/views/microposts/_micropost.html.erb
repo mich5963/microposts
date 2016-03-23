@@ -5,11 +5,15 @@
   <span class="timestamp">
     Posted <%= time_ago_in_words(micropost.created_at) %> ago.
     <% if current_user == micropost.user %>
-     <%= link_to "delete", micropost, method: :delete, data: { confirm: "You sure?" } %>
+       <%= link_to "delete", micropost, method: :delete, data: { confirm: "You sure?" } %>
     <% elsif current_user.favorites?(micropost) %>
-      <%= link_to "お気に入り解除", favorite_path(micropost.id), method: :delete, data: { confirm: "You sure?" } %>
+        <%= button_to favorite_path(micropost), method: :delete, class: "btn btn-default btn-sm" do %>
+        <%= content_tag :span, "解除", class: "glyphicon glyphicon-star" %>
+        <% end %>
     <% else %>
-      <%= link_to "お気に入り登録", favorites_path(micropost), method: :post %>
+        <%= button_to favorites_path(micropost), class: "btn btn-default btn-sm" do %>
+        <%= content_tag :span, "登録", method: :post, remote: true, class: "glyphicon glyphicon-star" %>
+        <% end %>
     <% end %>
   </span>
 </li>

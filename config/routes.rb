@@ -7,15 +7,19 @@ Rails.application.routes.draw do
   post 'login', to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
   #get 'logout', to: 'sessions#destroy'
-  # get 'followings', to: 'users#followings'
-  # get 'followers', to: 'users#followers'
-  # post '/users/', to: 'users#create'    
+ 
   
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   resources :microposts
   resources :relationships, only: [:create, :destroy]
-  resources :favorites, only: [:create, :destroy]
+  #resources :favorites, only: [:create, :destroy]
+post '/favorites/:id', to:  'favorites#create', as: 'favorites'
+resources :favorites, only: [:show, :destroy]
+  # resources :microposts do
+  #   get "toggle"
+  # end
+
   
   resources :users do
     member do
