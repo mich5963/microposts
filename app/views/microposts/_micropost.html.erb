@@ -11,8 +11,8 @@
         <%= content_tag :span, "解除", class: "glyphicon glyphicon-star" %>
         <% end %>
     <% else %>
-        <%= button_to favorites_path(micropost), class: "btn btn-default btn-sm" do %>
-        <%= content_tag :span, "登録", method: :post, remote: true, class: "glyphicon glyphicon-star" %>
+        <%= button_to favorites_path(micropost), method: :post, class: "btn btn-default btn-sm" do %>
+        <%= content_tag :span, "登録", class: "glyphicon glyphicon-star" %>
         <% end %>
     <% end %>
   </span>
